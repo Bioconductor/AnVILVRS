@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Use the ~/bioc directory
-cd ~/bioc/
+cd ~/bioc/anvilvrsproj
 
 # Set the Python version for this directory
 pyenv local 3.11.13
