@@ -1,0 +1,22 @@
+Package: AnVILVRS
+Type: Package
+Title: Expose the vrs_anvil_toolkit Python package via R
+Version: 0.99.0
+Authors@R: c(
+    person(
+      "Marcel", "Ramos",
+      email = "marcel.ramos@sph.cuny.edu",
+      role = c("aut", "cre")
+    )
+  )
+Description: Process Variant Call Format (VCF) files and perform lookup
+    operations on Genomic Variation Representation Service (GA4GH VRS)
+    identifiers. The GA4GH VRS identifiers provide a standardized way to
+    represent genomic variations, making it easier to exchange and share
+    genomic information.
+Imports:
+    BiocBaseUtils,
+    reticulate
+License: Artistic-2.0
+Encoding: UTF-8
+RoxygenNote: 7.3.3
