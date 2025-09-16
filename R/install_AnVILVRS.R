@@ -1,7 +1,8 @@
-#' @importFrom reticulate virtualenv_create virtualenv_install
+#' @importFrom reticulate virtualenv_create virtualenv_install virtualenv_exists
+#'   py_discover_config
 .install_AnVILVRS <- function(envname) {
     python <- tryCatch({
-        reticulate::py_discover_config(
+        py_discover_config(
             required_module = "venv", use_environment = envname
         )$python
     }, error = function(e) {
