@@ -4,7 +4,7 @@
 \alias{install_AnVILVRS}
 \title{Install AnVILVRS Python Environment}
 \usage{
-install_AnVILVRS(envname = "AnVILVRS", force = FALSE)
+install_AnVILVRS(envname = "vrs_env", force = FALSE)
 }
 \arguments{
 \item{envname}{`character(1)` virtual environment in which to

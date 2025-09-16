@@ -59,7 +59,7 @@
 #'
 #' @export
 install_AnVILVRS <-
-    function(envname = "AnVILVRS", force = FALSE)
+    function(envname = "vrs_env", force = FALSE)
 {
     stopifnot(isScalarCharacter(envname))
     is_windows <- identical(.Platform$OS.type, "windows")
@@ -73,7 +73,7 @@ install_AnVILVRS <-
     }
 
     # Check if the environment exists or if installation is forced
-    if (!envname %in% reticulate::virtualenv_list() || force) {
+    if (!envname %in% virtualenv_list() || force) {
         message("Creating Python virtual environment '", envname, "'...")
         .install_AnVILVRS(envname)
         message("Environment '", envname, "' created successfully.")
@@ -82,11 +82,11 @@ install_AnVILVRS <-
     }
 
     # Point reticulate to the environment for the current session
-    reticulate::use_virtualenv(virtualenv = envname, required = TRUE)
+    use_virtualenv(virtualenv = envname, required = TRUE)
 
     # A helper function that likely imports and returns the module
     message(
-        "Installation complete. The 'AnVILVRS' environment is ready to use."
+        "Installation complete. The 'vrs_env' environment is ready to use."
     )
 
     invisible(.anvilvrs())

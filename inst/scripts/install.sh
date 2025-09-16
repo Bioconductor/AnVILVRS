@@ -7,10 +7,10 @@ cd ~/bioc/
 pyenv local 3.11.13
 
 # Create a new virtual environment
-python -m venv AnVILVRS
+python -m venv vrs_env
 
 # Activate it
-source AnVILVRS/bin/activate
+source vrs_env/bin/activate
 
 # 1. Downgrade tools for firecloud
 pip install "setuptools<58" "pip<23.1"
