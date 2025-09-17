@@ -11,10 +11,29 @@ def get_vrs_id_from_variant(variant_id, from_format="gnomad"):
   Translates a variant ID (e.g., in gnomad format) to a VRS Allele ID.
   """
   try:
-    allele = allele_translator.translate_from(variant_id, from_format)
-    # The VRS ID is accessed via the `id` property, which is a CURIE string
+    allele = get_vrs_allele_from_variant(variant_id, from_format)
     vrs_id = str(allele.id)
     return vrs_id
   except Exception as e:
-    # Return the error message if translation fails
+    return str(e)
+
+def get_vrs_allele_from_variant(variant_id, from_format="gnomad"):
+  """
+  Translates a variant ID (e.g., in gnomad format) to a VRS Allele object.
+  """
+  try:
+    allele = allele_translator.translate_from(variant_id, from_format)
+    return allele
+  except Exception as e:
+    return str(e)
+
+def get_variant_from_allele(allele, to_format="gnomad"):
+  """
+  Translates a VRS Allele object to a variant ID in the specified format (e.g.,
+  gnomad).
+  """
+  try:
+    variant_id = allele_translator.translate_to(allele, to_format)
+    return variant_id
+  except Exception as e:
     return str(e)

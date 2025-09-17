@@ -3,6 +3,8 @@
 export(.anvilvrs)
 export(.vrs_translator)
 export(download_seqrepo)
+export(get_variant_from_allele)
+export(get_vrs_allele)
 export(get_vrs_id)
 export(install_AnVILVRS)
 importFrom(AnVILGCP,avcopy)

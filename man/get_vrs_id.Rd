@@ -2,18 +2,28 @@
 % Please edit documentation in R/get_vrs_id.R
 \name{get_vrs_id}
 \alias{get_vrs_id}
+\alias{get_vrs_allele}
+\alias{get_variant_from_allele}
 \title{Translate a Variant to a VRS ID}
 \usage{
-get_vrs_id(variant_id, from_format = c("gnomad", "spdi", "hgvs"))
+get_vrs_id(variant_id, from_format = c("gnomad", "spdi", "hgvs", "beacon"))
+
+get_vrs_allele(variant_id, from_format = c("gnomad", "spdi", "hgvs", "beacon"))
+
+get_variant_from_allele(
+  allele,
+  to_format = c("gnomad", "spdi", "hgvs", "beacon")
+)
 }
 \arguments{
 \item{variant_id}{`character(1)` A string of the variant to translate.}
 
-\item{from_format}{`character(1)` One of "gnomad", "spdi", or "hgvs" formats
-indicating the format of the input `variant_id`. The abbreviations
-stand for Genome Aggregation Database, Sequence Position Deletion
-Insertion, and Human Genome Variation Society, respectively. the respective
-variant representation. Defaults to "gnomad".}
+\item{from_format}{`character(1)` One of "gnomad", "spdi", "hgvs", or
+"beacon" formats indicating the format of the input `variant_id`. The
+abbreviations stand for Genome Aggregation Database, Sequence Position
+Deletion Insertion, Human Genome Variation Society, and Beacon
+nomenclature, respectively. the respective variant representation. Defaults
+to "gnomad".}
 }
 \value{
 A character string containing the VRS ID.
@@ -29,5 +39,15 @@ This function uses a Python backend to translate a variant identifier
   get_vrs_id("chr7-87509329-A-G", "gnomad")
   get_vrs_id("NC_000005.10:80656509:C:TT", "spdi")
   get_vrs_id("NC_000005.10:g.80656510delinsTT", "hgvs")
+  get_vrs_id("5 : 80656489 C > T", "beacon")
+
+  get_vrs_allele("NC_000005.10:g.80656510delinsTT", "hgvs")
+  get_vrs_allele("5-80656489-C-T", "gnomad")
+
+  allele <- get_vrs_allele("5 : 80656489 C > T", "beacon")
+  get_variant_from_allele(allele, "hgvs")
+
+  allele <- get_vrs_allele("NC_000005.10:g.80656510delinsTT", "hgvs")
+  get_variant_from_allele(allele, "spdi")
 \dontshow{\}) # examplesIf}
 }
