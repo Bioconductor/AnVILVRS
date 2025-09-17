@@ -15,6 +15,7 @@ Description: Process Variant Call Format (VCF) files and perform lookup
     represent genomic variations, making it easier to exchange and share
     genomic information.
 Imports:
+    AnVILGCP,
     BiocBaseUtils,
     reticulate
 License: Artistic-2.0
