@@ -42,6 +42,11 @@
         envname = envname,
         packages = c("git+https://github.com/gks-anvil/vrs_anvil_toolkit.git")
     )
+
+    virtualenv_install(
+        envname = envname,
+        packages = c("ga4gh.vrs[extras]")
+    )
 }
 
 #' @rdname install_AnVILVRS
