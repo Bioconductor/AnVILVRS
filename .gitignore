@@ -4,3 +4,4 @@
 .Ruserdata
 *.Rproj
 pyvenv.cfg
+*__pycache__/
