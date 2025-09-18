@@ -14,8 +14,6 @@
 #'
 #' @return A character string containing the VRS ID.
 #'
-#' @export
-#'
 #' @examplesIf interactive()
 #'   use_virtualenv("vrs_env", required = TRUE)
 #'
