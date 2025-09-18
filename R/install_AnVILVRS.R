@@ -40,13 +40,15 @@
     message("--> Step 4 of 4: Installing 'vrs_anvil_toolkit' from GitHub...")
     virtualenv_install(
         envname = envname,
-        packages = c("git+https://github.com/gks-anvil/vrs_anvil_toolkit.git")
+        packages = "git+https://github.com/gks-anvil/vrs_anvil_toolkit.git"
     )
 
+    # 6. Install GA4GH VRS and plugin_system
     virtualenv_install(
         envname = envname,
-        packages = c("ga4gh.vrs[extras]")
+        packages = c("ga4gh.vrs[extras]", "plugin_system")
     )
+
 }
 
 #' @rdname install_AnVILVRS
