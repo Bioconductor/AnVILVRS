@@ -24,7 +24,8 @@ Get the allele frequency from 1000 Genomes Project VCF file
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-  use_virtualenv("/home/mramos/bioc/anvilvrsproj/vrs_env", required = TRUE)
+  ## use full path to vrs_env
+  use_virtualenv("vrs_env", required = TRUE)
   vcf <- "vrs_anvil_toolkit/tests/fixtures/1kGP.chr1.1000.vrs.vcf.gz"
   vcf_index <- "1000g_chr1_index.db"
   variant_id <- "chr1-20094-TAA-T"
