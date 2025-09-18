@@ -5,3 +5,4 @@
 *.Rproj
 pyvenv.cfg
 *__pycache__/
+*.log
