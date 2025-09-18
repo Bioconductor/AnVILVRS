@@ -13,6 +13,11 @@ get_caf(vrs_id, vcf, vcf_index, phenotype = "USA")
 Project variants with allele frequency annotations.}
 
 \item{vcf_index}{`character(1)` Path to the index file for the VCF file.}
+
+\item{phenotype}{`character(1)` Population or super-population code from the
+1000 Genomes Project. See `anvil-datastorage/AnVIL_1000G_PRIMED-data-model`
+workspace under `data/population_descriptor.tsv` for valid codes. Defaults
+to "USA".}
 }
 \description{
 Get the allele frequency from 1000 Genomes Project VCF file

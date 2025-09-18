@@ -7,6 +7,11 @@
 #'
 #' @param vcf_index `character(1)` Path to the index file for the VCF file.
 #'
+#' @param phenotype `character(1)` Population or super-population code from the
+#'   1000 Genomes Project. See `anvil-datastorage/AnVIL_1000G_PRIMED-data-model`
+#'   workspace under `data/population_descriptor.tsv` for valid codes. Defaults
+#'   to "USA".
+#'
 #' @examplesIf interactive()
 #'   ## use full path to vrs_env
 #'   use_virtualenv("vrs_env", required = TRUE)
