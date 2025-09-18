@@ -20,3 +20,16 @@
         .vrs_translator
     }
 })
+
+#' @export
+.caf <- local({
+    .caf <- NULL
+    function() {
+        if (is.null(.caf))
+            .caf <<- reticulate::import_from_path(
+                module = "caf",
+                path = system.file("python", package = "AnVILVRS")
+            )
+        .caf
+    }
+})
