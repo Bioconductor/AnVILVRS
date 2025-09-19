@@ -15,6 +15,7 @@
 #' @return A character string containing the VRS ID.
 #'
 #' @examplesIf interactive()
+#'   library(reticulate)
 #'   use_virtualenv("vrs_env", required = TRUE)
 #'
 #'   get_vrs_id("chr7-87509329-A-G", "gnomad")

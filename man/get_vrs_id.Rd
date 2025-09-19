@@ -34,6 +34,7 @@ This function uses a Python backend to translate a variant identifier
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+  library(reticulate)
   use_virtualenv("vrs_env", required = TRUE)
 
   get_vrs_id("chr7-87509329-A-G", "gnomad")
