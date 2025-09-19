@@ -12,6 +12,10 @@
 #'   workspace under `data/population_descriptor.tsv` for valid codes. Defaults
 #'   to "USA".
 #'
+#' @param pop_desc_file `character(1)` Path to the population descriptor file
+#'   downloaded from the AnVIL_1000G_PRIMED-data-model workspace. If `NULL`
+#'   (default), the file will be downloaded to a temporary directory.
+#'
 #' @examplesIf interactive()
 #'   library(reticulate)
 #'   ## OR use full path to vrs_env
@@ -20,22 +24,27 @@
 #'   vcf_index <- "1000g_chr1_index.db"
 #'   variant_id <- "chr1-20094-TAA-T"
 #'   vrs_id <- get_vrs_id(variant_id, "gnomad")
-#'   get_caf(vrs_id, vcf, vcf_index, "USA")
+#'   pop_desc <- get_pop_descriptor("~/data")
+#'   get_caf(vrs_id, vcf, vcf_index, "USA", pop_desc_file = pop_desc)
 #' @export
-get_caf <-
-    function(vrs_id, vcf, vcf_index, phenotype = "USA")
-{
+get_caf <- function(
+    vrs_id, vcf, vcf_index, phenotype = "USA", pop_desc_file = NULL
+) {
     reticulate::py_run_string("import sys")
     ## append 1000g path for plugin system (use full path)
     reticulate::py_run_string(
         "sys.path.append('vrs_anvil_toolkit/1000g')"
     )
     module <- .caf()
+    if (is.null(pop_desc_file))
+        pop_desc_file <- get_pop_descriptor(tempdir())
+    else
+        stopifnot(file.exists(pop_desc_file))
     tg_plugin <- module$initialize_plugin(
         "ThousandGenomesPlugin",
         ## download from anvil-datastorage/AnVIL_1000G_PRIMED-data-model/data
         ## workspace with avcopy
-        phenotype_table_path = "./data/population_descriptor.tsv"
+        phenotype_table_path = pop_desc_file
     )
 
     module$calculate_caf(

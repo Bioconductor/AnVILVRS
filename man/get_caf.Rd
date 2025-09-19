@@ -4,7 +4,7 @@
 \alias{get_caf}
 \title{Get the allele frequency from 1000 Genomes Project VCF file}
 \usage{
-get_caf(vrs_id, vcf, vcf_index, phenotype = "USA")
+get_caf(vrs_id, vcf, vcf_index, phenotype = "USA", pop_desc_file = NULL)
 }
 \arguments{
 \item{vrs_id}{`character(1)` A GA4GH VRS Allele ID}
@@ -18,6 +18,10 @@ Project variants with allele frequency annotations.}
 1000 Genomes Project. See `anvil-datastorage/AnVIL_1000G_PRIMED-data-model`
 workspace under `data/population_descriptor.tsv` for valid codes. Defaults
 to "USA".}
+
+\item{pop_desc_file}{`character(1)` Path to the population descriptor file
+downloaded from the AnVIL_1000G_PRIMED-data-model workspace. If `NULL`
+(default), the file will be downloaded to a temporary directory.}
 }
 \description{
 Get the allele frequency from 1000 Genomes Project VCF file
@@ -31,6 +35,7 @@ Get the allele frequency from 1000 Genomes Project VCF file
   vcf_index <- "1000g_chr1_index.db"
   variant_id <- "chr1-20094-TAA-T"
   vrs_id <- get_vrs_id(variant_id, "gnomad")
-  get_caf(vrs_id, vcf, vcf_index, "USA")
+  pop_desc <- get_pop_descriptor("~/data")
+  get_caf(vrs_id, vcf, vcf_index, "USA", pop_desc_file = pop_desc)
 \dontshow{\}) # examplesIf}
 }
