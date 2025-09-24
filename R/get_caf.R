@@ -16,24 +16,36 @@
 #'   downloaded from the AnVIL_1000G_PRIMED-data-model workspace. If `NULL`
 #'   (default), the file will be downloaded to a temporary directory.
 #'
+#' @param toolkit_dir `character(1)` Path to the directory containing the
+#'   `vrs_anvil_toolkit/1000g` subdirectory. Defaults to the current working
+#'   directory and `vrs_anvil_toolkit` folder.
+#'
 #' @examplesIf interactive()
 #'   library(reticulate)
 #'   ## OR use full path to vrs_env
 #'   use_virtualenv("vrs_env", required = TRUE)
-#'   vcf <- "vrs_anvil_toolkit/tests/fixtures/1kGP.chr1.1000.vrs.vcf.gz"
-#'   vcf_index <- "1000g_chr1_index.db"
+#'   vcf <- "../vrs_anvil_toolkit/tests/fixtures/1kGP.chr1.1000.vrs.vcf.gz"
+#'   vcf_index <- "../1000g_chr1_index.db"
 #'   variant_id <- "chr1-20094-TAA-T"
 #'   vrs_id <- get_vrs_id(variant_id, "gnomad")
 #'   pop_desc <- get_pop_descriptor("~/data")
-#'   get_caf(vrs_id, vcf, vcf_index, "USA", pop_desc_file = pop_desc)
+#'   get_caf(
+#'     vrs_id, vcf, vcf_index, "USA",
+#'     pop_desc_file = pop_desc, toolkit_dir = "../vrs_anvil_toolkit"
+#'   )
 #' @export
 get_caf <- function(
-    vrs_id, vcf, vcf_index, phenotype = "USA", pop_desc_file = NULL
+    vrs_id, vcf, vcf_index, phenotype = "USA",
+    pop_desc_file = NULL, toolkit_dir = "./vrs_anvil_toolkit"
 ) {
     reticulate::py_run_string("import sys")
     ## append 1000g path for plugin system (use full path)
+    stopifnot(dir.exists(toolkit_dir))
+    toolkit_dir <- file.path(normalizePath(toolkit_dir), "1000g")
     reticulate::py_run_string(
-        "sys.path.append('vrs_anvil_toolkit/1000g')"
+        paste0(
+            "sys.path.append('", toolkit_dir, "')"
+        )
     )
     module <- .caf()
     if (is.null(pop_desc_file))
