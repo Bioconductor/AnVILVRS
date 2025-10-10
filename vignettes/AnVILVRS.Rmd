@@ -1,0 +1,108 @@
+---
+title: "Using AnVIL VRS Toolkit in R"
+author: 
+- name: Marcel Ramos
+  affiliation: >
+    CUNY Graduate School of Public Health and Health Policy, New York, NY USA
+output: BiocStyle::html_document
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+vignette: >
+  %\VignetteIndexEntry{AnVILVRS Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+package: AnVILVRS
+---
+
+# AnVILVRS
+
+# Introduction
+
+The AnVILVRS package provides an R interface to the
+[AnVIL VRS Toolkit](https://pypi.org/project/vrs-anvil-toolkit/), a Python
+library for working with the [Global Alliance for Genomics and Health (GA4GH)
+Variation Representation Specification (VRS)](https://vrs.ga4gh.org/en/stable/)
+standard. The package allows users to translate variant identifiers from various
+formats (e.g., gnomAD, SPDI, HGVS, Beacon) into GA4GH VRS Allele IDs and vice
+versa. Additionally, it provides functionality to retrieve allele frequency data
+from the 1000 Genomes Project based on VRS Allele IDs.
+
+# Installation
+
+To use the AnVILVRS package, you need to have Python installed on your system.
+The package requires Python 3.11, so ensure that you have this version
+installed.
+
+Install the AnVILVRS package from Bioconductor with:
+
+```{r install, eval=FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("AnVILVRS")
+```
+
+# Loading and Setup
+
+Load the AnVILVRS package and the reticulate package for Python integration:
+
+```{r load}
+library(AnVILVRS)
+library(reticulate)
+```
+
+After installing the package, you need to set up a Python virtual environment
+with the required dependencies. You can do this by running the following command
+in R:
+
+```{r setup, eval=FALSE}
+install_AnVILVRS(envname = "vrs_env")
+```
+
+# Usage
+
+Once the virtual environment is set up, you can use the AnVILVRS package to
+translate variant identifiers and retrieve allele frequency data.
+First, load the package and activate the virtual environment:
+
+```{r}
+use_virtualenv("vrs_env", required = TRUE)
+```
+
+## Translating Variant Identifiers
+
+You can translate variant identifiers from various formats into GA4GH VRS Allele
+IDs using the `get_vrs_id` function. Supported formats include "gnomad",
+"spdi", "hgvs", and "beacon".
+
+```{r translate}
+get_vrs_id("chr7-87509329-A-G", "gnomad")
+get_vrs_id("NC_000005.10:80656509:C:TT", "spdi")
+get_vrs_id("NC_000005.10:g.80656510delinsTT", "hgvs")
+get_vrs_id("5 : 80656489 C > T", "beacon")
+```
+
+## Allele Object Retrieval
+
+You can also retrieve the VRS Allele object using the `get_vrs_allele` function:
+
+```{r allele}
+allele <- get_vrs_allele("5 : 80656489 C > T", "beacon")
+allele
+```
+
+## Variant Retrieval from Allele Object
+
+You can convert a VRS Allele object back to a variant identifier in a specified
+format using the `get_variant_from_allele` function:
+
+```{r variant_from_allele}
+get_variant_from_allele(allele, "hgvs")
+```
+
+## Retrieving Allele Frequency Data
+
+To retrieve allele frequency data from the 1000 Genomes Project based on a VRS
+Allele ID, use the `get_caf` function. You will need a bgz zipped VCF file
+containing 1000 Genomes Project variants with allele frequency annotations and
+its corresponding index file.
+
