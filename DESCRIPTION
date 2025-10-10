@@ -17,6 +17,7 @@ Description: Process Variant Call Format (VCF) files and perform lookup
 Imports:
     AnVILGCP,
     BiocBaseUtils,
+    BiocFileCache,
     reticulate
 License: Artistic-2.0
 Encoding: UTF-8

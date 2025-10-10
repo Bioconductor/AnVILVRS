@@ -2,23 +2,23 @@
 % Please edit documentation in R/utils.R
 \name{get_pop_descriptor}
 \alias{get_pop_descriptor}
-\title{Downloads the population descriptor file to the specified directory
+\title{Downloads the population descriptor file to the BiocFileCache
 from a known Google Storage URI.}
 \usage{
-get_pop_descriptor(destdir = ".", ...)
+get_pop_descriptor(uri = .POP_DESC_URI, ...)
 }
 \arguments{
-\item{destdir}{`character(1)` The local directory where the file should be
-downloaded. Defaults to the current working directory.}
+\item{uri}{`character(1)` The URI pointing to a Google Storage location where
+the `population_descriptor.tsv` file is hosted.}
 
 \item{...}{Additional arguments passed to `AnVILGCP::avcopy()`.}
 }
 \description{
-Downloads the population descriptor file to the specified directory
+Downloads the population descriptor file to the BiocFileCache
 from a known Google Storage URI.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
-get_pop_descriptor(destdir = tempdir())
+get_pop_descriptor()
 \dontshow{\}) # examplesIf}
 }
