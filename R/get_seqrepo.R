@@ -9,16 +9,16 @@
 #'   the `seqrepo.tar.gz` file is hosted.
 #'
 #' @param destdir `character(1)` The local directory where the file should be
-#'   downloaded. Defaults to the user's home directory.
+#'   downloaded. Defaults to the current working directory.
 #'
 #' @param ... Additional arguments passed to `avcopy()`.
 #'
 #' @importFrom AnVILGCP avcopy
 #'
 #' @examplesIf interactive()
-#' download_seqrepo(destdir = tempdir())
+#' get_seqrepo(destdir = tempdir())
 #' @export
-download_seqrepo <- function(uri = .SEQREPO_URI_GS, destdir = "~/", ...) {
+get_seqrepo <- function(uri = .SEQREPO_URI_GS, destdir = "./", ...) {
     destdir <- normalizePath(destdir)
     stopifnot(dir.exists(destdir))
 
