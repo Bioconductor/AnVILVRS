@@ -19,6 +19,11 @@ Imports:
     BiocBaseUtils,
     BiocFileCache,
     reticulate
+Suggests:
+    BiocStyle,
+    knitr,
+    readr,
+    rmarkdown
 License: Artistic-2.0
 Encoding: UTF-8
 RoxygenNote: 7.3.3
