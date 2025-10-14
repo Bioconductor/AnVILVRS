@@ -5,8 +5,10 @@
 #'
 #' @param variant_id `character(1)` A string of the variant to translate.
 #'
-#' @param from_format `character(1)` One of "gnomad", "spdi", "hgvs", or
-#'   "beacon" formats indicating the format of the input `variant_id`. The
+#' @param allele A GA4GH VRS `Allele` object returned by `get_vrs_allele()`
+#'
+#' @param from_format,to_format `character(1)` One of "gnomad", "spdi", "hgvs",
+#'   or "beacon" formats indicating the format of the input `variant_id`. The
 #'   abbreviations stand for Genome Aggregation Database, Sequence Position
 #'   Deletion Insertion, Human Genome Variation Society, and Beacon
 #'   nomenclature, respectively. the respective variant representation. Defaults

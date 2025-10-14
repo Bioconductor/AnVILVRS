@@ -18,12 +18,14 @@ get_variant_from_allele(
 \arguments{
 \item{variant_id}{`character(1)` A string of the variant to translate.}
 
-\item{from_format}{`character(1)` One of "gnomad", "spdi", "hgvs", or
-"beacon" formats indicating the format of the input `variant_id`. The
+\item{from_format, to_format}{`character(1)` One of "gnomad", "spdi", "hgvs",
+or "beacon" formats indicating the format of the input `variant_id`. The
 abbreviations stand for Genome Aggregation Database, Sequence Position
 Deletion Insertion, Human Genome Variation Society, and Beacon
 nomenclature, respectively. the respective variant representation. Defaults
 to "gnomad".}
+
+\item{allele}{A GA4GH VRS `Allele` object returned by `get_vrs_allele()`}
 }
 \value{
 A character string containing the VRS ID.
