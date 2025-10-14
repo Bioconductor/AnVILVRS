@@ -14,6 +14,7 @@
 #' @param ... Additional arguments passed to `avcopy()`.
 #'
 #' @importFrom AnVILGCP avcopy
+#' @importFrom utils untar
 #'
 #' @examplesIf interactive()
 #' get_seqrepo(destdir = tempdir())
