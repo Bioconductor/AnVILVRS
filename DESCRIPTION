@@ -14,6 +14,7 @@ Description: Process Variant Call Format (VCF) files and perform lookup
     identifiers. The GA4GH VRS identifiers provide a standardized way to
     represent genomic variations, making it easier to exchange and share
     genomic information.
+Depends: R (>= 4.5.0)
 Imports:
     AnVILGCP,
     BiocBaseUtils,
