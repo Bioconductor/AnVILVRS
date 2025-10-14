@@ -101,25 +101,7 @@ get_variant_from_allele(allele, "hgvs")
 
 ## Retrieving Allele Frequency Data
 
-To retrieve allele frequency data from the 1000 Genomes Project based on a VRS
-Allele ID, use the `get_caf` function. You will need a `.gz` zipped VCF file
-containing 1000 Genomes Project variants with allele frequency annotations and
-its corresponding index file.
-
-```{r, eval=FALSE}
-use_virtualenv("vrs_env", required = TRUE)
-vcf <- "../vrs_anvil_toolkit/tests/fixtures/1kGP.chr1.1000.vrs.vcf.gz"
-vcf_index <- "../1000g_chr1_index.db"
-variant_id <- "chr1-20094-TAA-T"
-vrs_id <- get_vrs_id(variant_id, "gnomad")
-pop_desc <- get_pop_descriptor()
-get_caf(
-  vrs_id, vcf, vcf_index, "USA",
-  pop_desc_file = pop_desc, toolkit_dir = "../vrs_anvil_toolkit"
-)
-```
-
-## Data download functions
+### Population Descriptor table download
 
 The `get_pop_descriptor` function downloads the population descriptor file
 from a known Google Storage URI to the BiocFileCache. This file is used in the
@@ -140,6 +122,8 @@ read_tsv(
 )
 ```
 
+### SeqRepo reference data
+
 The `get_seqrepo` function downloads a SeqRepo archive from a specified URI to
 a local directory. This is useful for setting up the SeqRepo database required
 by the AnVIL VRS Toolkit.
@@ -147,3 +131,24 @@ by the AnVIL VRS Toolkit.
 ```{r seqrepo, eval=FALSE}
 get_seqrepo(destdir = tempdir())
 ```
+
+### Cohort Allele Frequency (CAF) calculation
+
+To calculate the Cohort Allele Frequency (CAF) using the 1000 Genomes Project
+based on a VRS Allele ID, use the `get_caf` function. You will need a `.gz`
+zipped VCF file containing 1000 Genomes Project variants with allele frequency
+annotations and its corresponding index file.
+
+```{r, eval=FALSE}
+use_virtualenv("vrs_env", required = TRUE)
+vcf <- "../vrs_anvil_toolkit/tests/fixtures/1kGP.chr1.1000.vrs.vcf.gz"
+vcf_index <- "../1000g_chr1_index.db"
+variant_id <- "chr1-20094-TAA-T"
+vrs_id <- get_vrs_id(variant_id, "gnomad")
+pop_desc <- get_pop_descriptor()
+get_caf(
+  vrs_id, vcf, vcf_index, "USA",
+  pop_desc_file = pop_desc, toolkit_dir = "../vrs_anvil_toolkit"
+)
+```
+
