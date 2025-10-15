@@ -10,7 +10,7 @@ install_AnVILVRS(envname = "vrs_env", force = FALSE)
 \item{envname}{`character(1)` virtual environment in which to
 install the python zarr module.}
 
-\item{force}{`logical(1)` force re-installation of Zarr requirements}
+\item{force}{`logical(1)` force re-installation of AnVILVRS requirements}
 }
 \value{
 Reference to the python module, invisibly.

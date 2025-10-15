@@ -58,7 +58,7 @@
 #' @param envname `character(1)` virtual environment in which to
 #'     install the python zarr module.
 #'
-#' @param force `logical(1)` force re-installation of Zarr requirements
+#' @param force `logical(1)` force re-installation of AnVILVRS requirements
 #'
 #' @importFrom reticulate virtualenv_list use_virtualenv
 #' @importFrom BiocBaseUtils isScalarCharacter
