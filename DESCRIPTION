@@ -1,7 +1,7 @@
 Package: AnVILVRS
 Type: Package
 Title: Expose the vrs_anvil_toolkit Python package via R
-Version: 0.99.2
+Version: 0.99.3
 Authors@R: c(
     person(
       "Marcel", "Ramos",
