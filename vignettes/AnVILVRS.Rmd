@@ -15,6 +15,17 @@ package: AnVILVRS
 
 # AnVILVRS
 
+```{r prereqs,include=FALSE,error=0}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  cache = TRUE,
+  out.width = "100%"
+)
+AnVILVRS::install_AnVILVRS(envname = "vrs_env")
+has_env <- reticulate::virtualenv_exists("vrs_env")
+```
+
 # Introduction
 
 The AnVILVRS package provides an R interface to the
@@ -64,7 +75,7 @@ Once the virtual environment is set up, you can use the AnVILVRS package to
 translate variant identifiers and retrieve allele frequency data.
 First, load the package and activate the virtual environment:
 
-```{r}
+```{r venv, eval=has_env}
 use_virtualenv("vrs_env", required = TRUE)
 ```
 
@@ -74,7 +85,7 @@ You can translate variant identifiers from various formats into GA4GH VRS Allele
 IDs using the `get_vrs_id` function. Supported formats include "gnomad",
 "spdi", "hgvs", and "beacon".
 
-```{r translate}
+```{r translate, eval=has_env}
 get_vrs_id("chr7-87509329-A-G", "gnomad")
 get_vrs_id("NC_000005.10:80656509:C:TT", "spdi")
 get_vrs_id("NC_000005.10:g.80656510delinsTT", "hgvs")
@@ -85,7 +96,7 @@ get_vrs_id("5 : 80656489 C > T", "beacon")
 
 You can also retrieve the VRS Allele object using the `get_vrs_allele` function:
 
-```{r allele}
+```{r allele, eval=has_env}
 allele <- get_vrs_allele("5 : 80656489 C > T", "beacon")
 allele
 ```
@@ -95,7 +106,7 @@ allele
 You can convert a VRS Allele object back to a variant identifier in a specified
 format using the `get_variant_from_allele` function:
 
-```{r variant_from_allele}
+```{r variant_from_allele, eval=has_env}
 get_variant_from_allele(allele, "hgvs")
 ```
 
