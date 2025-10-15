@@ -1,52 +1,163 @@
+
 # AnVILVRS
 
-The `AnVILVRS` R package provides tools to work with genomic variation data,
-leveraging the GA4GH Variant Representation Specification (VRS). It serves as
-an R interface to the `vrs_anvil_toolkit` Python package, allowing users to
-translate variant identifiers into VRS seamlessly within the R environment.
+# Introduction
 
-## Installation
+The AnVILVRS package provides an R interface to the [AnVIL VRS
+Toolkit](https://pypi.org/project/vrs-anvil-toolkit/), a Python library
+for working with the [Global Alliance for Genomics and Health (GA4GH)
+Variation Representation Specification
+(VRS)](https://vrs.ga4gh.org/en/stable/) standard. The package allows
+users to translate variant identifiers from various formats (e.g.,
+gnomAD, SPDI, HGVS, Beacon) into GA4GH VRS Allele IDs and vice versa.
+Additionally, it provides functionality to retrieve allele frequency
+data from the 1000 Genomes Project based on VRS Allele IDs.
 
-First, install the `AnVILVRS` package from GitHub:
+# Installation
 
-```r
-if (!requireNamespace("devtools", quietly = TRUE))
-    install.packages("devtools")
-devtools::install_github("Bioconductor/AnVILVRS")
+To use the AnVILVRS package, you need to have Python installed on your
+system. The package requires Python 3.11, so ensure that you have this
+version installed.
+
+Install the AnVILVRS package from Bioconductor with:
+
+``` r
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("AnVILVRS")
 ```
 
-Next, set up the necessary Python environment. The package provides a function
-to handle the installation of the required Python dependencies in a
-`reticulate` virtual environment.
+# Loading and Setup
 
-```r
+Load the AnVILVRS package and the reticulate package for Python
+integration:
+
+``` r
 library(AnVILVRS)
-install_AnVILVRS()
+library(reticulate)
 ```
 
-This will create a Python virtual environment named `vrs_env` and install all
-the necessary components.
+After installing the package, you need to set up a Python virtual
+environment with the required dependencies. You can do this by running
+the following command in R:
 
-## Usage
+``` r
+install_AnVILVRS(envname = "vrs_env")
+```
 
-Before using the package functions, load the virtual environment:
+# Usage
 
-```r
-library(reticulate)
+Once the virtual environment is set up, you can use the AnVILVRS package
+to translate variant identifiers and retrieve allele frequency data.
+First, load the package and activate the virtual environment:
+
+``` r
 use_virtualenv("vrs_env", required = TRUE)
 ```
 
-Here is an example of how to translate a variant in gnomAD format to a VRS
-Allele ID:
+## Translating Variant Identifiers
 
-```r
-library(AnVILVRS)
-# Translate a gnomad variant to a VRS ID
+You can translate variant identifiers from various formats into GA4GH
+VRS Allele IDs using the `get_vrs_id` function. Supported formats
+include “gnomad”, “spdi”, “hgvs”, and “beacon”.
+
+``` r
 get_vrs_id("chr7-87509329-A-G", "gnomad")
+#> [1] "'str' object has no attribute 'id'"
+get_vrs_id("NC_000005.10:80656509:C:TT", "spdi")
+#> [1] "'str' object has no attribute 'id'"
+get_vrs_id("NC_000005.10:g.80656510delinsTT", "hgvs")
+#> [1] "'str' object has no attribute 'id'"
+get_vrs_id("5 : 80656489 C > T", "beacon")
+#> [1] "'str' object has no attribute 'id'"
 ```
 
-The package also supports other formats like `spdi`, `hgvs`, and `beacon`.
+## Allele Object Retrieval
 
-For more information on the available functions, please refer to the package
-documentation.
+You can also retrieve the VRS Allele object using the `get_vrs_allele`
+function:
 
+``` r
+allele <- get_vrs_allele("5 : 80656489 C > T", "beacon")
+allele
+#> [1] "HTTPSConnectionPool(host='services.genomicmedlab.org', port=443): Max retries exceeded with url: /seqrepo/1/metadata/GRCh38:5 (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x77f5a8137b90>: Failed to resolve 'services.genomicmedlab.org' ([Errno -3] Temporary failure in name resolution)\"))"
+```
+
+## Variant Retrieval from Allele Object
+
+You can convert a VRS Allele object back to a variant identifier in a
+specified format using the `get_variant_from_allele` function:
+
+``` r
+get_variant_from_allele(allele, "hgvs")
+#> [1] "could not translate host name \"uta.biocommons.org\" to address: Temporary failure in name resolution\n"
+```
+
+## Retrieving Allele Frequency Data
+
+### Population Descriptor table download
+
+The `get_pop_descriptor` function downloads the population descriptor
+file from a known Google Storage URI to the BiocFileCache. This file is
+used in the `get_caf` function to map population codes.
+
+``` r
+library(readr)
+pop_desc <- get_pop_descriptor()
+#> Found in BiocFileCache: BFC2
+read_tsv(
+    file = pop_desc,
+    col_types = cols(
+        population_descriptor_id = col_character(),
+        population_descriptor = col_character(),
+        subject_id = col_character(),
+        country_of_recruitment = col_character(),
+        population_label = col_character()
+    )
+)
+#> # A tibble: 3,202 × 5
+#>    population_descriptor_id population_descriptor    subject_id country_of_recruitment population_label
+#>    <chr>                    <chr>                    <chr>      <chr>                  <chr>           
+#>  1 fb7368ca                 population | superpopul… HG00096    UK                     GBR | EUR       
+#>  2 ada92c9c                 population | superpopul… HG00097    UK                     GBR | EUR       
+#>  3 5b9b6b8c                 population | superpopul… HG00099    UK                     GBR | EUR       
+#>  4 4957a17c                 population | superpopul… HG00100    UK                     GBR | EUR       
+#>  5 f3e3ab5b                 population | superpopul… HG00101    UK                     GBR | EUR       
+#>  6 bc1c2c8e                 population | superpopul… HG00102    UK                     GBR | EUR       
+#>  7 035cf47a                 population | superpopul… HG00103    UK                     GBR | EUR       
+#>  8 89ee21d5                 population | superpopul… HG00105    UK                     GBR | EUR       
+#>  9 ac194313                 population | superpopul… HG00106    UK                     GBR | EUR       
+#> 10 7c2b88af                 population | superpopul… HG00107    UK                     GBR | EUR       
+#> # ℹ 3,192 more rows
+```
+
+### SeqRepo reference data
+
+The `get_seqrepo` function downloads a SeqRepo archive from a specified
+URI to a local directory. This is useful for setting up the SeqRepo
+database required by the AnVIL VRS Toolkit.
+
+``` r
+get_seqrepo(destdir = tempdir())
+```
+
+### Cohort Allele Frequency (CAF) calculation
+
+To calculate the Cohort Allele Frequency (CAF) using the 1000 Genomes
+Project based on a VRS Allele ID, use the `get_caf` function. You will
+need a `.gz` zipped VCF file containing 1000 Genomes Project variants
+with allele frequency annotations and its corresponding index file.
+
+``` r
+use_virtualenv("vrs_env", required = TRUE)
+vcf <- "../vrs_anvil_toolkit/tests/fixtures/1kGP.chr1.1000.vrs.vcf.gz"
+vcf_index <- "../1000g_chr1_index.db"
+variant_id <- "chr1-20094-TAA-T"
+vrs_id <- get_vrs_id(variant_id, "gnomad")
+pop_desc <- get_pop_descriptor()
+get_caf(
+  vrs_id, vcf, vcf_index, "USA",
+  pop_desc_file = pop_desc, toolkit_dir = "../vrs_anvil_toolkit"
+)
+```
