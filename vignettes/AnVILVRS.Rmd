@@ -4,7 +4,11 @@ author:
 - name: Marcel Ramos
   affiliation: >
     CUNY Graduate School of Public Health and Health Policy, New York, NY USA
-output: BiocStyle::html_document
+output:
+  BiocStyle::html_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 vignette: >
   %\VignetteIndexEntry{AnVILVRS Introduction}
@@ -16,14 +20,18 @@ package: AnVILVRS
 # AnVILVRS
 
 ```{r prereqs,include=FALSE,error=0}
+library(BiocStyle)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   cache = TRUE,
   out.width = "100%"
 )
-AnVILVRS::install_AnVILVRS(envname = "vrs_env")
 has_env <- reticulate::virtualenv_exists("vrs_env")
+if (!has_env) {
+    AnVILVRS::install_AnVILVRS(envname = "vrs_env")
+    has_env <- reticulate::virtualenv_exists("vrs_env")
+}
 ```
 
 # Introduction
