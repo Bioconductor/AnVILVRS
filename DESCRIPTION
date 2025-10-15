@@ -24,7 +24,8 @@ Suggests:
     BiocStyle,
     knitr,
     readr,
-    rmarkdown
+    rmarkdown,
+    tinytest
 VignetteBuilder: knitr
 License: Artistic-2.0
 Encoding: UTF-8
