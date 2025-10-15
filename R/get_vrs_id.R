@@ -23,12 +23,12 @@
 #'   get_vrs_id("chr7-87509329-A-G", "gnomad")
 #'   get_vrs_id("NC_000005.10:80656509:C:TT", "spdi")
 #'   get_vrs_id("NC_000005.10:g.80656510delinsTT", "hgvs")
-#'   get_vrs_id("5 : 80656489 C > T", "beacon")
+#'   get_vrs_id("5:80656489C>T", "beacon")
 #'
 #'   get_vrs_allele("NC_000005.10:g.80656510delinsTT", "hgvs")
 #'   get_vrs_allele("5-80656489-C-T", "gnomad")
 #'
-#'   allele <- get_vrs_allele("5 : 80656489 C > T", "beacon")
+#'   allele <- get_vrs_allele("5:80656489C>T", "beacon")
 #'   get_variant_from_allele(allele, "hgvs")
 #'
 #'   allele <- get_vrs_allele("NC_000005.10:g.80656510delinsTT", "hgvs")
