@@ -26,6 +26,12 @@ Suggests:
     readr,
     rmarkdown,
     tinytest
+biocViews:
+    Software,
+    BiologicalQuestion,
+    VariantAnnotation,
+    Infrastructure,
+    ThirdPartyClient
 VignetteBuilder: knitr
 License: Artistic-2.0
 Encoding: UTF-8
