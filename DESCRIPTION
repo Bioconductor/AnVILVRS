@@ -1,7 +1,7 @@
 Package: AnVILVRS
 Type: Package
 Title: Expose the vrs_anvil_toolkit Python package via R
-Version: 0.99.5
+Version: 0.99.6
 Authors@R: c(
     person(
       "Marcel", "Ramos",
@@ -36,4 +36,4 @@ VignetteBuilder: knitr
 License: Artistic-2.0
 Encoding: UTF-8
 RoxygenNote: 7.3.3
-Date: 2025-10-15
+Date: 2025-10-16
