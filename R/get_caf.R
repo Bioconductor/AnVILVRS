@@ -28,7 +28,7 @@
 #'   vcf_index <- "../1000g_chr1_index.db"
 #'   variant_id <- "chr1-20094-TAA-T"
 #'   vrs_id <- get_vrs_id(variant_id, "gnomad")
-#'   pop_desc <- get_pop_descriptor("~/data")
+#'   pop_desc <- get_pop_descriptor()
 #'   get_caf(
 #'     vrs_id, vcf, vcf_index, "USA",
 #'     pop_desc_file = pop_desc, toolkit_dir = "../vrs_anvil_toolkit"
