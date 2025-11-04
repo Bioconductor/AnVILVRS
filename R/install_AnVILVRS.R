@@ -37,10 +37,9 @@
     )
 
     # 5. Install vrs_anvil_toolkit
-    message("--> Step 4 of 4: Installing 'vrs_anvil_toolkit' from GitHub...")
+    message("--> Step 4 of 4: Installing 'vrs_anvil_toolkit'")
     virtualenv_install(
-        envname = envname,
-        packages = "git+https://github.com/gks-anvil/vrs_anvil_toolkit.git"
+        envname = envname, packages = "vrs-anvil-toolkit"
     )
 
     # 6. Install GA4GH VRS and plugin_system
