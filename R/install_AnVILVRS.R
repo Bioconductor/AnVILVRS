@@ -7,11 +7,20 @@
         )$python
     }, error = function(e) {
         stop(
-            "Python 3.11 is required but was not found on your system.\n",
+            "Python is required but was not found on your system.\n",
             "Install Python 3.11 or make it discoverable (e.g., via pyenv).",
             call. = FALSE
         )
     })
+
+    py_ver <- system2(python, "--version", stdout = TRUE)
+    has311 <- py_ver |>  grepl("^Python 3\\.11", x = _, fixed = TRUE)
+
+    if (!has311)
+        stop(
+            "Python 3.11 is required but ", py_ver, " was found.",
+            "\nConsider using 'install_python()' to install python 3.11."
+        )
 
     # 1. Create the virtual environment using the discovered Python 3.11
     if (!virtualenv_exists(envname))
