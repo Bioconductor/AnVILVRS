@@ -14,7 +14,7 @@
     })
 
     py_ver <- system2(python, "--version", stdout = TRUE)
-    has311 <- py_ver |>  grepl("^Python 3\\.11", x = _, fixed = TRUE)
+    has311 <- py_ver |>  grepl("^Python 3\\.11", x = _)
 
     if (!has311)
         stop(
