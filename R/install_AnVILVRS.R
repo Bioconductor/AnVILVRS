@@ -65,7 +65,9 @@
     )
 
     # 6. Install GA4GH VRS and plugin_system
-    message("--> Step 5 of 5: Installing 'vrs_anvil_toolkit'")
+    message(
+        "--> Step 5 of 5: Installing 'ga4gh.vrs[extras]' and 'plugin_system'"
+    )
     virtualenv_install(
         envname = envname,
         packages = c("ga4gh.vrs[extras]", "plugin_system")
