@@ -6,70 +6,70 @@
     # 1. Prevent "User site-packages are not visible" error
     pipuser <- Sys.getenv("PIP_USER")
     Sys.unsetenv("PIP_USER")
-    # 2. Prevent reticulate from locking onto the wrong system Python
+    # 2a. Re-set PIP_USER environment variable
+    on.exit(Sys.setenv(PIP_USER = pipuser))
+    # 3. Prevent reticulate from locking onto the wrong system Python
     ret_python <- Sys.getenv("RETICULATE_PYTHON")
-    Sys.unsetenv("RETICULATE_PYTHON")
-    # 3. Re-set AnVIL environment variables
-    on.exit(
-        Sys.setenv(
-            PIP_USER = pipuser,
-            RETICULATE_PYTHON = ret_python
+    # 3a. Re-set RETICULATE_PYTHON environment variable
+    if (nzchar(ret_python)) {
+        Sys.unsetenv("RETICULATE_PYTHON")
+        on.exit(
+            Sys.setenv(
+                RETICULATE_PYTHON = ret_python
+            ),
+            add = TRUE
         )
-    )
+    }
 
-    python <- tryCatch({
-        # Use reticulate's function to find a specific Python version
-        py_discover_config(use_environment = envname)$python
-    }, error = function(e) {
-        stop(
-          "Python is required but was not found on your system.\n",
-          "Install Python 3.11 with:\n",
-          "    reticulate::install_python(\"3.11:latest\")",
-          call. = FALSE
-        )
-    })
+    python3.11 <- reticulate::virtualenv_starter("<=3.11")
+    prompt <- "Do you want to install Python '3.11:latest'?"
 
-    py_ver <- system2(python, "--version", stdout = TRUE)
-    has311 <- py_ver |>  grepl("^Python 3\\.11", x = _)
-
-    if (!has311 && askUserYesNo("Do you want to install Python '3.11:latest'?"))
+    if (is.null(python3.11) && askUserYesNo(prompt))
         python <- reticulate::install_python(version = "3.11:latest")
+    else if (is.null(python3.11))
+        stop(
+            "Python 3.11 is required but was not found with ",
+            "'virtualenv_starter(\"<=3.11\")'.\n",
+            "To install, use:\n",
+            "    reticulate::install_python(\"3.11:latest\")",
+            call. = FALSE
+        )
 
     # 1. Create the virtual environment using the discovered Python 3.11
     if (!virtualenv_exists(envname))
         virtualenv_create(envname = envname, python = python)
 
     # 2. Downgrade tools for firecloud
-    message("--> Step 1 of 4: Downgrading build tools for 'firecloud'...")
+    message("--> Step 1 of 5: Downgrading build tools for 'firecloud'...")
     virtualenv_install(
         envname = envname, packages = c("setuptools<58", "pip<23.1")
     )
 
     # 3. Install firecloud
-    message("--> Step 2 of 4: Installing 'firecloud'...")
+    message("--> Step 2 of 5: Installing 'firecloud'...")
     virtualenv_install(
         envname = envname, packages = c("firecloud==0.16.38")
     )
 
     # 4. Upgrade tools for the main package
-    message("--> Step 3 of 4: Upgrading build tools...")
+    message("--> Step 3 of 5: Upgrading build tools...")
     virtualenv_install(
         envname = envname, packages = c("setuptools", "pip"),
         pip_options = "--upgrade"
     )
 
     # 5. Install vrs_anvil_toolkit
-    message("--> Step 4 of 4: Installing 'vrs_anvil_toolkit'")
+    message("--> Step 4 of 5: Installing 'vrs_anvil_toolkit'")
     virtualenv_install(
         envname = envname, packages = "vrs-anvil-toolkit"
     )
 
     # 6. Install GA4GH VRS and plugin_system
+    message("--> Step 5 of 5: Installing 'vrs_anvil_toolkit'")
     virtualenv_install(
         envname = envname,
         packages = c("ga4gh.vrs[extras]", "plugin_system")
     )
-
 }
 
 #' @rdname install_AnVILVRS
