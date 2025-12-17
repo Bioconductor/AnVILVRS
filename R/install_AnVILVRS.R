@@ -1,26 +1,39 @@
 #' @importFrom reticulate virtualenv_create virtualenv_install virtualenv_exists
 #'   py_discover_config
+#' @importFrom BiocBaseUtils askUserYesNo
 .install_AnVILVRS <- function(envname) {
+
+    # 1. Prevent "User site-packages are not visible" error
+    pipuser <- Sys.getenv("PIP_USER")
+    Sys.unsetenv("PIP_USER")
+    # 2. Prevent reticulate from locking onto the wrong system Python
+    ret_python <- Sys.getenv("RETICULATE_PYTHON")
+    Sys.unsetenv("RETICULATE_PYTHON")
+    # 3. Re-set AnVIL environment variables
+    on.exit(
+        Sys.setenv(
+            PIP_USER = pipuser,
+            RETICULATE_PYTHON = ret_python
+        )
+    )
+
     python <- tryCatch({
-        py_discover_config(
-            required_module = "venv", use_environment = envname
-        )$python
+        # Use reticulate's function to find a specific Python version
+        py_discover_config(use_environment = envname)$python
     }, error = function(e) {
         stop(
-            "Python is required but was not found on your system.\n",
-            "Install Python 3.11 or make it discoverable (e.g., via pyenv).",
-            call. = FALSE
+          "Python is required but was not found on your system.\n",
+          "Install Python 3.11 with:\n",
+          "    reticulate::install_python(\"3.11:latest\")",
+          call. = FALSE
         )
     })
 
     py_ver <- system2(python, "--version", stdout = TRUE)
     has311 <- py_ver |>  grepl("^Python 3\\.11", x = _)
 
-    if (!has311)
-        stop(
-            "Python 3.11 is required but ", py_ver, " was found.",
-            "\nConsider using 'install_python()' to install python 3.11."
-        )
+    if (!has311 && askUserYesNo("Do you want to install Python '3.11:latest'?"))
+        python <- reticulate::install_python(version = "3.11:latest")
 
     # 1. Create the virtual environment using the discovered Python 3.11
     if (!virtualenv_exists(envname))
