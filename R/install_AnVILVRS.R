@@ -25,7 +25,7 @@
     prompt <- "Do you want to install Python '3.11:latest'?"
 
     if (is.null(python3.11) && askUserYesNo(prompt))
-        python <- reticulate::install_python(version = "3.11:latest")
+        python3.11 <- reticulate::install_python(version = "3.11:latest")
     else if (is.null(python3.11))
         stop(
             "Python 3.11 is required but was not found with ",
@@ -37,7 +37,7 @@
 
     # 1. Create the virtual environment using the discovered Python 3.11
     if (!virtualenv_exists(envname))
-        virtualenv_create(envname = envname, python = python)
+        virtualenv_create(envname = envname, python = python3.11)
 
     # 2. Downgrade tools for firecloud
     message("--> Step 1 of 5: Downgrading build tools for 'firecloud'...")
