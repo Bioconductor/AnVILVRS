@@ -35,36 +35,30 @@
             call. = FALSE
         )
 
-    # 1. Create the virtual environment using the discovered Python 3.11
     if (!virtualenv_exists(envname))
         virtualenv_create(envname = envname, python = python3.11)
 
-    # 2. Downgrade tools for firecloud
     message("--> Step 1 of 5: Downgrading build tools for 'firecloud'...")
     virtualenv_install(
         envname = envname, packages = c("setuptools<58", "pip<23.1")
     )
 
-    # 3. Install firecloud
     message("--> Step 2 of 5: Installing 'firecloud'...")
     virtualenv_install(
         envname = envname, packages = c("firecloud==0.16.38")
     )
 
-    # 4. Upgrade tools for the main package
     message("--> Step 3 of 5: Upgrading build tools...")
     virtualenv_install(
         envname = envname, packages = c("setuptools", "pip"),
         pip_options = "--upgrade"
     )
 
-    # 5. Install vrs_anvil_toolkit
     message("--> Step 4 of 5: Installing 'vrs_anvil_toolkit'")
     virtualenv_install(
         envname = envname, packages = "vrs-anvil-toolkit"
     )
 
-    # 6. Install GA4GH VRS and plugin_system
     message(
         "--> Step 5 of 5: Installing 'ga4gh.vrs[extras]' and 'plugin_system'"
     )
