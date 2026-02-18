@@ -178,3 +178,13 @@ get_caf(
   pop_desc_file = pop_desc, toolkit_dir = "../vrs_anvil_toolkit"
 )
 ```
+
+# SessionInfo
+
+<details> <summary>Click to expand session info</summary>
+
+```{r}
+sessionInfo()
+```
+
+</details>
