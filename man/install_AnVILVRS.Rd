@@ -18,3 +18,11 @@ Reference to the python module, invisibly.
 \description{
 Install AnVILVRS Python Environment
 }
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+library(reticulate)
+has_vrs_env <- virtualenv_exists("vrs_env")
+if (!has_vrs_env)
+    install_AnVILVRS(envname = "vrs_env")
+\dontshow{\}) # examplesIf}
+}

@@ -83,6 +83,11 @@
 #'
 #' @return Reference to the python module, invisibly.
 #'
+#' @examplesIf interactive()
+#' library(reticulate)
+#' has_vrs_env <- virtualenv_exists("vrs_env")
+#' if (!has_vrs_env)
+#'     install_AnVILVRS(envname = "vrs_env")
 #' @export
 install_AnVILVRS <-
     function(envname = "vrs_env", force = FALSE)
