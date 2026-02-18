@@ -32,6 +32,10 @@ if (!has_env) {
     AnVILVRS::install_AnVILVRS(envname = "vrs_env")
     has_env <- reticulate::virtualenv_exists("vrs_env")
 }
+has_gcloud <- AnVILBase::has_avworkspace(
+    strict = TRUE, platform = AnVILGCP::gcp()
+)
+has_envs <- has_env && has_gcloud
 ```
 
 # Introduction
@@ -130,7 +134,7 @@ function makes use of the population descriptor `.tsv` file to dynamically
 provide a Cohort Allele Frequency based on the sub-population of interest. In
 our example, we will use the "USA" population code.
 
-```{r download}
+```{r download, eval=has_envs}
 library(readr)
 pop_desc <- get_pop_descriptor()
 read_tsv(

@@ -21,6 +21,7 @@ Imports:
     BiocFileCache,
     reticulate
 Suggests:
+    AnVILBase,
     BiocStyle,
     knitr,
     readr,
