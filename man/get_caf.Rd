@@ -34,6 +34,9 @@ downloaded from the AnVIL_1000G_PRIMED-data-model workspace. If `NULL`
 `vrs_anvil_toolkit/1000g` subdirectory. Defaults to the current working
 directory and `vrs_anvil_toolkit` folder.}
 }
+\value{
+a `list()` response including `$focusAlleleFrequency`
+}
 \description{
 Get the allele frequency from 1000 Genomes Project VCF file
 }

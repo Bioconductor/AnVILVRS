@@ -28,6 +28,9 @@
 #'   ignored as the function uses `rsync` to download the SeqRepo data instead
 #'   of `avcopy()`.
 #'
+#' @returns `character(1)` The local directory path where the SeqRepo data has
+#'   been downloaded.
+#'
 #' @seealso <https://dl.biocommons.org/seqrepo/>
 #'
 #' @importFrom AnVILGCP avcopy

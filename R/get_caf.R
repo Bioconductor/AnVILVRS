@@ -20,6 +20,8 @@
 #'   `vrs_anvil_toolkit/1000g` subdirectory. Defaults to the current working
 #'   directory and `vrs_anvil_toolkit` folder.
 #'
+#' @returns a `list()` response including `$focusAlleleFrequency`
+#'
 #' @examplesIf interactive()
 #'   library(reticulate)
 #'   ## OR use full path to vrs_env

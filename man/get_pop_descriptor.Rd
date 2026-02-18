@@ -13,6 +13,10 @@ the `population_descriptor.tsv` file is hosted.}
 
 \item{...}{Additional arguments passed to `AnVILGCP::avcopy()`.}
 }
+\value{
+`character(1)` The local file path to the downloaded population
+  descriptor file
+}
 \description{
 Downloads the population descriptor file to the BiocFileCache
 from a known Google Storage URI.

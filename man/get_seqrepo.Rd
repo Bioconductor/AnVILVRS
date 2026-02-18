@@ -22,6 +22,10 @@ of `avcopy()`.}
 \item{uri}{`character(1)` DEPRECATED The URI pointing to a Google Storage
 location where the `seqrepo.tar.gz` file is hosted.}
 }
+\value{
+`character(1)` The local directory path where the SeqRepo data has
+  been downloaded.
+}
 \description{
 The function will 'rsync' the indicated SeqRepo snapshot using the
 `biocommons.seqrepo` Python package. The AnVIL VRS Toolkit relies on local

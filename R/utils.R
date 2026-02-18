@@ -16,6 +16,9 @@
 #' @importFrom BiocFileCache BiocFileCache bfcadd bfcquery bfcrpath
 #' @importFrom tools R_user_dir
 #'
+#' @returns `character(1)` The local file path to the downloaded population
+#'   descriptor file
+#'
 #' @examplesIf interactive()
 #' get_pop_descriptor()
 #' @export
