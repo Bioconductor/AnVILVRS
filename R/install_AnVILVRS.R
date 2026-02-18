@@ -60,7 +60,8 @@
     )
 
     message(
-        "--> Step 5 of 5: Installing 'ga4gh.vrs[extras]' and 'plugin_system'"
+        "--> Step 5 of 5: Installing 'ga4gh.vrs[extras]', 'plugin_system', ",
+        "and 'biocommons.seqrepo'"
     )
     virtualenv_install(
         envname = envname,
