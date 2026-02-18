@@ -2,25 +2,46 @@
 % Please edit documentation in R/get_seqrepo.R
 \name{get_seqrepo}
 \alias{get_seqrepo}
-\title{Download SeqRepo Archive}
+\title{Run rsync on SeqRepo snapshot}
 \usage{
-get_seqrepo(uri = .SEQREPO_URI_GS, destdir = "./", ...)
+get_seqrepo(destdir = "./", snapshot = "2024-12-20", ..., uri)
 }
 \arguments{
-\item{uri}{`character(1)` The URI pointing to a Google Storage location where
-the `seqrepo.tar.gz` file is hosted.}
-
 \item{destdir}{`character(1)` The local directory where the file should be
 downloaded. Defaults to the current working directory.}
 
-\item{...}{Additional arguments passed to `avcopy()`.}
+\item{snapshot}{`character(1)` The snapshot date of the SeqRepo database to
+download. Defaults to "2024-12-20". The snapshot date should correspond to
+a valid snapshot available in the SeqRepo database. You can check available
+snapshots at the SeqRepo repository or documentation.}
+
+\item{...}{Additional arguments passed to `AnVILGCP::avcopy()`. Currently
+ignored as the function uses `rsync` to download the SeqRepo data instead
+of `avcopy()`.}
+
+\item{uri}{`character(1)` DEPRECATED The URI pointing to a Google Storage
+location where the `seqrepo.tar.gz` file is hosted.}
 }
 \description{
-Download a SeqRepo archive from a specified URI to a local directory.
-Defaults to a known Google Storage URI.
+The function will 'rsync' the indicated SeqRepo snapshot using the
+`biocommons.seqrepo` Python package. The AnVIL VRS Toolkit relies on local
+access to the reference sequences provided by SeqRepo. Note that the 'rsync'
+operation will require significant amounts of disk space and may take a
+considerable amount of time to complete, depending on the size of the
+snapshot being downloaded and the speed of your internet connection.
+}
+\details{
+The function checks for the presence of `rsync` in the system's
+`PATH` and will throw an error if it is not found. If `rsync` is available,
+the function will execute the `seqrepo pull` command to download the
+reference data to the specified destination directory. The function returns
+the path to the local directory where the SeqRepo data has been downloaded.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 get_seqrepo(destdir = tempdir())
 \dontshow{\}) # examplesIf}
+}
+\seealso{
+<https://dl.biocommons.org/seqrepo/>
 }

@@ -70,7 +70,7 @@
     )
     virtualenv_install(
         envname = envname,
-        packages = c("ga4gh.vrs[extras]", "plugin_system")
+        packages = c("ga4gh.vrs[extras]", "plugin_system", "biocommons.seqrepo")
     )
 }
 
