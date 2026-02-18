@@ -22,10 +22,10 @@ package: AnVILVRS
 ```{r prereqs,include=FALSE,error=0}
 library(BiocStyle)
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  cache = TRUE,
-  out.width = "100%"
+    collapse = TRUE,
+    comment = "#>",
+    cache = TRUE,
+    out.width = "100%"
 )
 has_env <- reticulate::virtualenv_exists("vrs_env")
 if (!has_env) {
@@ -174,8 +174,8 @@ variant_id <- "chr1-20094-TAA-T"
 vrs_id <- get_vrs_id(variant_id, "gnomad")
 pop_desc <- get_pop_descriptor()
 get_caf(
-  vrs_id, vcf, vcf_index, "USA",
-  pop_desc_file = pop_desc, toolkit_dir = "../vrs_anvil_toolkit"
+    vrs_id, vcf, vcf_index, "USA",
+    pop_desc_file = pop_desc, toolkit_dir = "../vrs_anvil_toolkit"
 )
 ```
 
