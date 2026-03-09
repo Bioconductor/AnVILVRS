@@ -179,7 +179,7 @@ get_caf(
 )
 ```
 
-# SessionInfo
+# Session Info {.unnumbered}
 
 <details> <summary>Click to expand session info</summary>
 
