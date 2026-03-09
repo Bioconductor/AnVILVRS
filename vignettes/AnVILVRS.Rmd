@@ -166,7 +166,7 @@ Project based on a VRS Allele ID, use the `get_caf` function. A `.gz` zipped VCF
 file and its corresponding index file obtained from the 1000 Genomes Project is
 needed. It should include variants with allele frequency annotations.
 
-```{r, eval=FALSE}
+```{r get_caf, eval=FALSE}
 use_virtualenv("vrs_env", required = TRUE)
 vcf <- "../vrs_anvil_toolkit/tests/fixtures/1kGP.chr1.1000.vrs.vcf.gz"
 vcf_index <- "../1000g_chr1_index.db"
@@ -183,7 +183,7 @@ get_caf(
 
 <details> <summary>Click to expand session info</summary>
 
-```{r}
+```{r session_info}
 sessionInfo()
 ```
 
