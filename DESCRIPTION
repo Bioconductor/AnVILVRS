@@ -1,7 +1,7 @@
 Package: AnVILVRS
 Type: Package
 Title: Expose the vrs_anvil_toolkit Python package via R
-Version: 0.99.13
+Version: 0.99.14
 Authors@R: c(
     person(
         "Marcel", "Ramos", , "marcel.ramos@sph.cuny.edu",
@@ -37,4 +37,4 @@ URL: https://github.com/Bioconductor/AnVILVRS
 BugReports: https://github.com/Bioconductor/AnVILVRS/issues
 Encoding: UTF-8
 RoxygenNote: 7.3.3
-Date: 2026-02-18
+Date: 2026-03-09
