@@ -45,14 +45,15 @@ Get the allele frequency from 1000 Genomes Project VCF file
   library(reticulate)
   ## OR use full path to vrs_env
   use_virtualenv("vrs_env", required = TRUE)
-  vcf <- "../vrs_anvil_toolkit/tests/fixtures/1kGP.chr1.1000.vrs.vcf.gz"
-  vcf_index <- "../1000g_chr1_index.db"
+  toolkit_dir <- setup_vrs_toolkit()
+  vcf <- AnVILVRS:::.get_fixture_vcf()
+  vcf_index <- build_vrs_index()
   variant_id <- "chr1-20094-TAA-T"
   vrs_id <- get_vrs_id(variant_id, "gnomad")
   pop_desc <- get_pop_descriptor()
   get_caf(
     vrs_id, vcf, vcf_index, "USA",
-    pop_desc_file = pop_desc, toolkit_dir = "../vrs_anvil_toolkit"
+    pop_desc_file = pop_desc
   )
 \dontshow{\}) # examplesIf}
 }
