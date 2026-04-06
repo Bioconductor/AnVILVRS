@@ -1,4 +1,3 @@
-#' @export
 .anvilvrs <- local({
     .anvilvrs <- NULL
     function() {
@@ -8,7 +7,6 @@
     }
 })
 
-#' @export
 .vrs_translator <- local({
     .vrs_translator <- NULL
     function() {
@@ -21,7 +19,6 @@
     }
 })
 
-#' @export
 .caf <- local({
     .caf <- NULL
     function() {
