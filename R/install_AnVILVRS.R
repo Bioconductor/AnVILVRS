@@ -54,7 +54,7 @@
         pip_options = "--upgrade"
     )
 
-    message("--> Step 4 of 5: Installing 'vrs_anvil_toolkit'")
+    message("--> Step 4 of 5: Installing 'vrs-anvil-toolkit'")
     virtualenv_install(
         envname = envname, packages = "vrs-anvil-toolkit"
     )
