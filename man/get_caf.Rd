@@ -10,7 +10,7 @@ get_caf(
   vcf_index,
   phenotype = "USA",
   pop_desc_file = NULL,
-  toolkit_dir = "./vrs_anvil_toolkit"
+  toolkit_dir = NULL
 )
 }
 \arguments{
@@ -31,8 +31,8 @@ downloaded from the AnVIL_1000G_PRIMED-data-model workspace. If `NULL`
 (default), the file will be downloaded to a temporary directory.}
 
 \item{toolkit_dir}{`character(1)` Path to the directory containing the
-`vrs_anvil_toolkit/1000g` subdirectory. Defaults to the current working
-directory and `vrs_anvil_toolkit` folder.}
+`vrs_anvil_toolkit/1000g` subdirectory. If `NULL` (default), the toolkit
+will be cloned to a user data directory using `setup_vrs_toolkit()`.}
 }
 \value{
 a `list()` response including `$focusAlleleFrequency`

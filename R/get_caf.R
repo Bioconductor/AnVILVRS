@@ -17,8 +17,8 @@
 #'   (default), the file will be downloaded to a temporary directory.
 #'
 #' @param toolkit_dir `character(1)` Path to the directory containing the
-#'   `vrs_anvil_toolkit/1000g` subdirectory. Defaults to the current working
-#'   directory and `vrs_anvil_toolkit` folder.
+#'   `vrs_anvil_toolkit/1000g` subdirectory. If `NULL` (default), the toolkit
+#'   will be cloned to a user data directory using `setup_vrs_toolkit()`.
 #'
 #' @returns a `list()` response including `$focusAlleleFrequency`
 #'
@@ -38,17 +38,20 @@
 #' @export
 get_caf <- function(
     vrs_id, vcf, vcf_index, phenotype = "USA",
-    pop_desc_file = NULL, toolkit_dir = "./vrs_anvil_toolkit"
+    pop_desc_file = NULL, toolkit_dir = setup_vrs_toolkit()
 ) {
+    toolkit_dir <- normalizePath(toolkit_dir)
     reticulate::py_run_string("import sys")
-    ## append 1000g path for plugin system (use full path)
-    stopifnot(dir.exists(toolkit_dir))
-    toolkit_dir <- file.path(normalizePath(toolkit_dir), "1000g")
+
+    # 1. Add 'src' to Python's search path for vrs_anvil and plugin_system
     reticulate::py_run_string(
-        paste0(
-            "sys.path.append('", toolkit_dir, "')"
-        )
+        paste0("sys.path.append('", file.path(toolkit_dir, "src"), "')")
     )
+    # 2. Add '1000g' for plugin system (use full path)
+    reticulate::py_run_string(
+        paste0("sys.path.append('", file.path(toolkit_dir, "1000g"), "')")
+    )
+
     module <- .caf()
     if (is.null(pop_desc_file))
         pop_desc_file <- get_pop_descriptor(tempdir())
