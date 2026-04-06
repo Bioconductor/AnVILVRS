@@ -21,6 +21,7 @@ Imports:
 Suggests:
     AnVILBase,
     BiocStyle,
+    gert,
     knitr,
     readr,
     rmarkdown,
