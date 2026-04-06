@@ -18,7 +18,8 @@
 #'
 #' @param toolkit_dir `character(1)` Path to the directory containing the
 #'   `vrs_anvil_toolkit/1000g` subdirectory. If `NULL` (default), the toolkit
-#'   will be cloned to a user data directory using `setup_vrs_toolkit()`.
+#'   location is determined by the `AnVILVRS.toolkit_path` option or cloned
+#'   to a user data directory using `setup_vrs_toolkit()`.
 #'
 #' @returns a `list()` response including `$focusAlleleFrequency`
 #'

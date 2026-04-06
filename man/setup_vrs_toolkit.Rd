@@ -8,7 +8,8 @@ setup_vrs_toolkit(destdir = NULL, update = FALSE)
 }
 \arguments{
 \item{destdir}{`character(1)` The directory to store the toolkit.
-Defaults to a persistent user data directory.}
+Defaults to the location specified by the `AnVILVRS.toolkit_path` option or
+a persistent user data directory.}
 
 \item{update}{`logical(1)` Whether to pull the latest changes if the
 directory already exists.}
@@ -22,6 +23,13 @@ directory if it does not already exist. If the directory exists and
 `update = TRUE`, the function will pull the latest changes from the remote
 repository. The function returns the local path to the toolkit repository.
 Note that `gert` is used to clone the repository into the local directory.
+}
+\details{
+The repository location is determined in order of priority:
+  1. The `destdir` argument (if provided).
+  2. The `AnVILVRS.toolkit_path` global option (set via
+     `options(AnVILVRS.toolkit_path = "...")`).
+  3. A persistent user data directory (via `tools::R_user_dir("AnVILVRS")`).
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}

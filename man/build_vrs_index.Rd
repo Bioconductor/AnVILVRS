@@ -11,10 +11,16 @@ build_vrs_index(
 )
 }
 \arguments{
+\item{vcf}{`character(1)` Path to the bgzipped VCF file containing the VRS
+annotations. Defaults to a 1kGP fixture within the toolkit.}
+
 \item{dbfile}{`character(1)` The name of the index database file to be
 created. Defaults to "1000g_chr1_index.db". Note that the dbfile is added
 in the `setup_vrs_toolkit()` directory, so the full path to the generated
 database will be `file.path(setup_vrs_toolkit(), dbfile)`.}
+
+\item{force}{`logical(1)` Whether to force the generation of the index
+database even if it already exists. Defaults to `FALSE`.}
 }
 \value{
 `character(1)` The normalized path to the generated index database.
@@ -30,6 +36,9 @@ This function indexes the VRS annotations in a specific 1000 Genomes
   it typically avoids duplicating entries in the location table, the
   re-scanning process can be time-consuming for large files and may increase
   the database file size due to metadata updates.
+
+  This function uses `setup_vrs_toolkit()` to find the toolkit directory and
+  is influenced by the `AnVILVRS.toolkit_path` option.
 }
 \examples{
 \dontshow{if (interactive()) withAutoprint(\{ # examplesIf}

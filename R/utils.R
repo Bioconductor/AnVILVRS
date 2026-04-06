@@ -52,8 +52,15 @@ get_pop_descriptor <- function(uri = .POP_DESC_URI, ...) {
 #' repository. The function returns the local path to the toolkit repository.
 #' Note that `gert` is used to clone the repository into the local directory.
 #'
+#' @details The repository location is determined in order of priority:
+#'   1. The `destdir` argument (if provided).
+#'   2. The `AnVILVRS.toolkit_path` global option (set via
+#'      `options(AnVILVRS.toolkit_path = "...")`).
+#'   3. A persistent user data directory (via `tools::R_user_dir("AnVILVRS")`).
+#'
 #' @param destdir `character(1)` The directory to store the toolkit.
-#'   Defaults to a persistent user data directory.
+#'   Defaults to the location specified by the `AnVILVRS.toolkit_path` option or
+#'   a persistent user data directory.
 #'
 #' @param update `logical(1)` Whether to pull the latest changes if the
 #'   directory already exists.
@@ -119,10 +126,19 @@ setup_vrs_toolkit <- function(destdir = NULL, update = FALSE) {
 #'   re-scanning process can be time-consuming for large files and may increase
 #'   the database file size due to metadata updates.
 #'
+#'   This function uses `setup_vrs_toolkit()` to find the toolkit directory and
+#'   is influenced by the `AnVILVRS.toolkit_path` option.
+#'
+#' @param vcf `character(1)` Path to the bgzipped VCF file containing the VRS
+#'   annotations. Defaults to a 1kGP fixture within the toolkit.
+#'
 #' @param dbfile `character(1)` The name of the index database file to be
 #'   created. Defaults to "1000g_chr1_index.db". Note that the dbfile is added
 #'   in the `setup_vrs_toolkit()` directory, so the full path to the generated
 #'   database will be `file.path(setup_vrs_toolkit(), dbfile)`.
+#'
+#' @param force `logical(1)` Whether to force the generation of the index
+#'   database even if it already exists. Defaults to `FALSE`.
 #'
 #' @return `character(1)` The normalized path to the generated index database.
 #'
