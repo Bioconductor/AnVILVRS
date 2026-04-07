@@ -30,8 +30,9 @@ BiocManager::install("AnVILVRS")
 
 # Loading and Setup
 
-Load the AnVILVRS package and the reticulate package for Python
-integration:
+Load the `AnVILVRS` package and the
+*[reticulate](https://CRAN.R-project.org/package=reticulate)* package
+for Python integration:
 
 ``` r
 library(AnVILVRS)
@@ -64,13 +65,13 @@ include “gnomad”, “spdi”, “hgvs”, and “beacon”.
 
 ``` r
 get_vrs_id("chr7-87509329-A-G", "gnomad")
-#> [1] "'str' object has no attribute 'id'"
+#> [1] "ga4gh:VA.Zr-4BQqp-pxp9Mh4MDvd7QYuUar72zzV"
 get_vrs_id("NC_000005.10:80656509:C:TT", "spdi")
-#> [1] "'str' object has no attribute 'id'"
+#> [1] "ga4gh:VA.LK_4rOVxyEwrEpaOVd-BDFV0ocbO5vgV"
 get_vrs_id("NC_000005.10:g.80656510delinsTT", "hgvs")
-#> [1] "'str' object has no attribute 'id'"
+#> [1] "ga4gh:VA.LK_4rOVxyEwrEpaOVd-BDFV0ocbO5vgV"
 get_vrs_id("5 : 80656489 C > T", "beacon")
-#> [1] "'str' object has no attribute 'id'"
+#> [1] "ga4gh:VA.ebezGL6HoAhtGJyVnB_mE5BH18ntKev4"
 ```
 
 ## Allele Object Retrieval
@@ -81,7 +82,7 @@ function:
 ``` r
 allele <- get_vrs_allele("5 : 80656489 C > T", "beacon")
 allele
-#> [1] "HTTPSConnectionPool(host='services.genomicmedlab.org', port=443): Max retries exceeded with url: /seqrepo/1/metadata/GRCh38:5 (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x77f5a8137b90>: Failed to resolve 'services.genomicmedlab.org' ([Errno -3] Temporary failure in name resolution)\"))"
+#> Allele(id='ga4gh:VA.ebezGL6HoAhtGJyVnB_mE5BH18ntKev4', type='Allele', name=None, description=None, aliases=None, extensions=None, digest='ebezGL6HoAhtGJyVnB_mE5BH18ntKev4', expressions=None, location=SequenceLocation(id='ga4gh:SL.JiLRuuyS5wefF_6-Vw7m3Yoqqb2YFkss', type='SequenceLocation', name=None, description=None, aliases=None, extensions=None, digest='JiLRuuyS5wefF_6-Vw7m3Yoqqb2YFkss', sequenceReference=SequenceReference(id=None, type='SequenceReference', name=None, description=None, aliases=None, extensions=None, refgetAccession='SQ.aUiQCzCPZ2d0csHbMSbh2NzInhonSXwI', residueAlphabet=None, circular=None, sequence=None, moleculeType=None), start=80656488, end=80656489, sequence=None), state=LiteralSequenceExpression(id=None, type='LiteralSequenceExpression', name=None, description=None, aliases=None, extensions=None, sequence=sequenceString(root='T')))
 ```
 
 ## Variant Retrieval from Allele Object
@@ -91,7 +92,7 @@ specified format using the `get_variant_from_allele` function:
 
 ``` r
 get_variant_from_allele(allele, "hgvs")
-#> [1] "could not translate host name \"uta.biocommons.org\" to address: Temporary failure in name resolution\n"
+#> [1] "NC_000005.10:g.80656489C>T"
 ```
 
 ## Retrieving Allele Frequency Data
