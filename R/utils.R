@@ -124,6 +124,15 @@ setup_vrs_toolkit <- function(destdir = NULL, update = FALSE) {
         return(repo_path)
     }
 
+    clone <- BiocBaseUtils::askUserYesNo(
+        paste0(
+            "Do you want to clone the 'gks-anvil/vrs_anvil_toolkit' repository",
+            " to:\n  ", repo_path
+        )
+    )
+    if (!clone)
+        stop("Cloning the repository is required to use 'AnVILVRS' features")
+
     parent_dir <- dirname(repo_path)
     if (!dir.exists(parent_dir))
         dir.create(parent_dir, recursive = TRUE)
