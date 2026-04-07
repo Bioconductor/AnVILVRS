@@ -223,3 +223,57 @@ get_caf(
 #> $cohort$name
 #> [1] "USA"
 ```
+
+# Session Info
+
+<details>
+
+<summary>
+
+Click to expand session info
+</summary>
+
+``` r
+sessionInfo()
+#> R version 4.6.0 alpha (2026-03-28 r89737)
+#> Platform: x86_64-pc-linux-gnu
+#> Running under: Ubuntu 24.04.4 LTS
+#>
+#> Matrix products: default
+#> BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
+#> LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+#>
+#> locale:
+#>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=en_US.UTF-8
+#>  [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8
+#>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                  LC_ADDRESS=C
+#> [10] LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+#>
+#> time zone: America/New_York
+#> tzcode source: system (glibc)
+#>
+#> attached base packages:
+#> [1] stats     graphics  grDevices utils     datasets  methods   base
+#>
+#> other attached packages:
+#> [1] BiocStyle_2.39.0  readr_2.2.0       reticulate_1.45.0 AnVILVRS_0.99.15  colorout_1.3-2
+#>
+#> loaded via a namespace (and not attached):
+#>  [1] rappdirs_0.3.4       generics_0.1.4       tidyr_1.3.2          RSQLite_2.4.6
+#>  [5] lattice_0.22-9       hms_1.1.4            digest_0.6.39        magrittr_2.0.4
+#>  [9] evaluate_1.0.5       grid_4.6.0           fastmap_1.2.0        blob_1.3.0
+#> [13] jsonlite_2.0.0       Matrix_1.7-5         AnVILGCP_1.5.3       DBI_1.3.0
+#> [17] BiocManager_1.30.27  httr_1.4.8           purrr_1.2.1          codetools_0.2-20
+#> [21] httr2_1.2.2          cli_3.6.5.9000       rlang_1.1.7          dbplyr_2.5.2
+#> [25] bit64_4.6.0-1        withr_3.0.2          cachem_1.1.0         yaml_2.3.12
+#> [29] otel_0.2.0           BiocBaseUtils_1.13.0 tools_4.6.0          tzdb_0.5.0
+#> [33] memoise_2.0.1        dplyr_1.2.0          filelock_1.0.3       GCPtools_1.1.0
+#> [37] curl_7.0.0           vctrs_0.7.2          R6_2.6.1             png_0.1-9
+#> [41] lifecycle_1.0.5      BiocFileCache_3.1.0  bit_4.6.0            pkgconfig_2.0.3
+#> [45] pillar_1.11.1        rsconnect_1.7.0      glue_1.8.0           Rcpp_1.1.1
+#> [49] xfun_0.57            tibble_3.3.1         tidyselect_1.2.1     rstudioapi_0.18.0
+#> [53] knitr_1.51           AnVILBase_1.5.1      htmltools_0.5.9      rmarkdown_2.31
+#> [57] compiler_4.6.0
+```
+
+</details>
