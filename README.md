@@ -95,13 +95,18 @@ get_variant_from_allele(allele, "hgvs")
 #> [1] "NC_000005.10:g.80656489C>T"
 ```
 
-## Retrieving Allele Frequency Data
+## Calculating Cohort Allele Frequency
 
 ### Population Descriptor table download
 
 The `get_pop_descriptor` function downloads the population descriptor
-file from a known Google Storage URI to the BiocFileCache. This file is
-used in the `get_caf` function to map population codes.
+file from a known Google Storage URI to the
+*[BiocFileCache](https://bioconductor.org/packages/3.23/BiocFileCache)*.
+This file is used in the calculation of the Cohort Allele Frequency
+(CAF). The `get_caf` function makes use of the population descriptor
+`.tsv` file to dynamically provide a Cohort Allele Frequency based on
+the sub-population of interest. In our example, we will use the “USA”
+population code.
 
 ``` r
 library(readr)
@@ -145,10 +150,11 @@ get_seqrepo(destdir = tempdir())
 
 ### Cohort Allele Frequency (CAF) calculation
 
-To calculate the Cohort Allele Frequency (CAF) using the 1000 Genomes
-Project based on a VRS Allele ID, use the `get_caf` function. You will
-need a `.gz` zipped VCF file containing 1000 Genomes Project variants
-with allele frequency annotations and its corresponding index file.
+Finally, to calculate the Cohort Allele Frequency (CAF) using the 1000
+Genomes Project based on a VRS Allele ID, use the `get_caf` function. A
+`.gz` zipped VCF file and its corresponding index file obtained from the
+1000 Genomes Project is needed. It should include variants with allele
+frequency annotations.
 
 ``` r
 use_virtualenv("vrs_env", required = TRUE)
