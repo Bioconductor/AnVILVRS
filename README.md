@@ -158,13 +158,68 @@ frequency annotations.
 
 ``` r
 use_virtualenv("vrs_env", required = TRUE)
-vcf <- "../vrs_anvil_toolkit/tests/fixtures/1kGP.chr1.1000.vrs.vcf.gz"
-vcf_index <- "../1000g_chr1_index.db"
+toolkit_dir <- setup_vrs_toolkit()
+vcf <- AnVILVRS:::.get_fixture_vcf()
+vcf_index <- build_vrs_index()
+#> Index database already exists at: /home/mramos/.local/share/R/AnVILVRS/vrs_anvil_toolkit/1000g_chr1_index.db
 variant_id <- "chr1-20094-TAA-T"
 vrs_id <- get_vrs_id(variant_id, "gnomad")
 pop_desc <- get_pop_descriptor()
+#> Found in BiocFileCache: BFC2
 get_caf(
-  vrs_id, vcf, vcf_index, "USA",
-  pop_desc_file = pop_desc, toolkit_dir = "../vrs_anvil_toolkit"
+    vrs_id = vrs_id,
+    vcf = vcf,
+    vcf_index = vcf_index,
+    phenotype = "USA",
+    pop_desc_file = pop_desc,
+    toolkit_dir = toolkit_dir
 )
+#> Initializing plugin: ThousandGenomesPlugin...
+#> Plugin initialized successfully!
+#> $type
+#> [1] "CohortAlleleFrequencyStudyResult"
+#>
+#> $sourceDataSet
+#> $sourceDataSet$id
+#> [1] "/home/mramos/.local/share/R/AnVILVRS/vrs_anvil_toolkit/tests/fixtures/1kGP.chr1.1000.vrs.vcf.gz"
+#>
+#> $sourceDataSet$type
+#> [1] "DataSet"
+#>
+#> $sourceDataSet$description
+#> [1] "Created 2026-04-07 13:41:45.016470"
+#>
+#>
+#> $ancillaryResults
+#> $ancillaryResults$homozygotes
+#> [1] 1
+#>
+#> $ancillaryResults$hemizygotes
+#> [1] 246
+#>
+#> $ancillaryResults$phenotypes
+#> [1] "USA"
+#>
+#>
+#> $focusAllele
+#> [1] "ga4gh:VA.1WRXw4TC5DYsjC2QLyKux9C0xETLN3Yt"
+#>
+#> $focusAlleleCount
+#> [1] 248
+#>
+#> $locusAlleleCount
+#> [1] 1184
+#>
+#> $focusAlleleFrequency
+#> [1] 0.2094595
+#>
+#> $cohort
+#> $cohort$id
+#> [1] "USA"
+#>
+#> $cohort$type
+#> [1] "StudyGroup"
+#>
+#> $cohort$name
+#> [1] "USA"
 ```
