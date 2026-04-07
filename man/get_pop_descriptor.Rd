@@ -5,11 +5,15 @@
 \title{Downloads the population descriptor file to the BiocFileCache
 from a known Google Storage URI.}
 \usage{
-get_pop_descriptor(uri = .POP_DESC_URI, ...)
+get_pop_descriptor(uri = .POP_DESC_URI, force = FALSE, ...)
 }
 \arguments{
 \item{uri}{`character(1)` The URI pointing to a Google Storage location where
 the `population_descriptor.tsv` file is hosted.}
+
+\item{force}{`logical(1)` Whether to force re-download the file even if it is
+already present in the `BiocFileCache`. Defaults to `FALSE`. If `TRUE`, the
+file will be re-downloaded.}
 
 \item{...}{Additional arguments passed to `AnVILGCP::avcopy()`.}
 }

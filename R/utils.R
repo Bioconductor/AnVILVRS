@@ -10,6 +10,10 @@
 #' @param uri `character(1)` The URI pointing to a Google Storage location where
 #'   the `population_descriptor.tsv` file is hosted.
 #'
+#' @param force `logical(1)` Whether to force re-download the file even if it is
+#'   already present in the `BiocFileCache`. Defaults to `FALSE`. If `TRUE`, the
+#'   file will be re-downloaded.
+#'
 #' @param ... Additional arguments passed to `AnVILGCP::avcopy()`.
 #'
 #' @importFrom AnVILGCP avcopy
@@ -22,20 +26,43 @@
 #' @examplesIf interactive()
 #' get_pop_descriptor()
 #' @export
-get_pop_descriptor <- function(uri = .POP_DESC_URI, ...) {
+get_pop_descriptor <- function(uri = .POP_DESC_URI, force = FALSE, ...) {
     cache <- tools::R_user_dir("AnVILVRS", which = "cache")
     bfc <- BiocFileCache::BiocFileCache(cache)
-    rid <- BiocFileCache::bfcquery(bfc, query = uri, field = "rname")$rid
+    query <- BiocFileCache::bfcquery(
+        bfc, query = uri, field = "rname", exact = TRUE
+    )
+    rid <- query[["rid"]]
     if (!length(rid)) {
         message("Downloading population descriptor...")
-        destfile <- tempfile(fileext = ".tsv")
+        destfile <- file.path(
+            cache,
+            tempfile(fileext = ".tsv") |>
+                basename()
+        )
         AnVILGCP::avcopy(
             source = uri,
             destination = destfile,
             ...
         )
-        rid <- BiocFileCache::bfcadd(bfc, rname = uri, fpath = destfile) |>
+        rid <- BiocFileCache::bfcadd(
+            x = bfc,
+            rname = uri,
+            fpath = destfile,
+            rtype = "local",
+            action = "asis",
+            fname = "exact",
+            exact = TRUE
+        ) |>
             names()
+    } else if (force) {
+        message("Redownloading population descriptor...")
+        destfile <- BiocFileCache::bfcrpath(bfc, rnames = uri, exact = TRUE)
+        AnVILGCP::avcopy(
+            source = uri,
+            destination = destfile,
+            ...
+        )
     } else {
         message("Found in BiocFileCache: ", rid)
     }
